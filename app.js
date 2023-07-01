@@ -5,15 +5,27 @@ import userRouter from "./routes/user.js";
 import expenseRouter from "./routes/expense.js";
 import incomeRouter from "./routes/income.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import {config } from "dotenv" ;
 
 export const app = express(); 
 
+config({
+    path : "./data/config.env" ,
+})
 
 
 // middleware
 app.use(express.json());
 
 app.use(cookieParser());
+
+app.use(cors({
+
+    origin : [process.env.FRONTEND_URL],
+    methods : ["GET" , "PUT" ,"POST" , "DELETE"],
+    credentials : true,
+}));
 
 
 app.use("/api/v1/users",userRouter);
