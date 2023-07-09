@@ -46,12 +46,7 @@ export const register = async (req, res)=>{
 export const login = async (req, res) =>{
         const {email , password} = req.body ;
     let user = await User.findOne({email}).select("+password");
-    if(!user){
-        return res.json({
-            success : "false" ,
-            message : "Account DNE , Register first",
-        });
-    };
+    if(!user) return next(new ErrorHandler("user not found" , 400)); 
     const isMatch = await bcrypt.compare(password , user.password);
     if(!isMatch){
         return res.json({

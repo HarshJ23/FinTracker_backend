@@ -7,6 +7,7 @@ import incomeRouter from "./routes/income.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import {config } from "dotenv" ;
+import { errorMiddleware } from "./middlewares/error.js";
 
 export const app = express(); 
 
@@ -38,6 +39,8 @@ app.use("/api/v1/income",incomeRouter);
 app.get("/" , (req ,res)=>{
     res.send("Server is working nice")
 });
+
+app.use(errorMiddleware);
 
 // register user API
 
