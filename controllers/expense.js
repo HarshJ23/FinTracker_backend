@@ -2,8 +2,8 @@ import { Expense } from "../models/expense.js";
 
 
 // add transaction(expense)
-export const addExpense = async (req, res)=>{
-
+export const addExpense = async (req, res , next)=>{
+try {
     const {amount , category} = req.body; 
     const expense = await Expense.create({
         amount, 
@@ -16,6 +16,10 @@ console.log(expense);
         success : true , 
         message : "Transaction added", 
     });
+} catch (error) {
+    next(error);
+}
+   
 };
 
 // delete expense transaction
