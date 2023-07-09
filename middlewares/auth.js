@@ -11,7 +11,7 @@ export const isAuth = async (req, res ,next)=>{
     message : "Please login first",
   });
 }
-  const decoded = jwt.verify(token , "fintrackerv1");
+  const decoded = jwt.verify(token , process.env.JWT_TOKEN);
     req.user = await User.findById(decoded._id);
   next();
 };
